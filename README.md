@@ -1,6 +1,6 @@
 # MNNIT Buzz
 
-MNNIT Buzz
+A place where MNNITians buzz around.
 
 ## Todo
 
