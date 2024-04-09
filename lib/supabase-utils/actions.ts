@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase-utils/server";
 import { redirect } from "next/navigation";
+import { revalidatePath, unstable_noStore } from "next/cache";
 
 export async function handleSignin() {
   const supabase = createClient();
@@ -22,8 +23,8 @@ export async function returnPaths() {
   const userData = await supabase.auth.getUser();
   const id = userData.data.user?.id;
   const { data, error } = await supabase.from("profiles").select().eq("id", id);
-  if (data) {
-    const userName = data[0].username;
+  if (data![0]) {
+    const userName = data![0].username;
     if (userName) {
       return {
         profilePath: "/member/" + userName,
@@ -58,17 +59,13 @@ export async function setUserNameLogic(values: { username: string }) {
   const { data, error } = await supabase.from("profiles").select("username");
   for (const user of data!) {
     if (user.username === values.username) {
-      // toast({ title: "Username is already taken." });
       return { title: "Username is taken :(", description: "" };
     }
   }
   await supabase
     .from("profiles")
     .upsert({ id: userId, username: values.username });
-  // toast({
-  //   title: "Username set!",
-  //   description: "Redirecting you to your profile.",
-  // });
+  revalidatePath("/(all)", "layout");
   return {
     title: "Username set!",
     description: "Redirecting you to your profile...",
@@ -105,6 +102,7 @@ export async function createPost(values: {
       })
       .select();
     const postId = data![0].id;
+    revalidatePath(`/member/${username}/posts/`);
     redirect(`/member/${username}/posts/${postId}`);
   } else {
     const { data, error } = await supabase
@@ -116,6 +114,7 @@ export async function createPost(values: {
       })
       .select();
     const postId = data![0].id;
+    revalidatePath(`/member/${username}/posts/`);
     redirect(`/member/${username}/posts/${postId}`);
   }
 }

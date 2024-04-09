@@ -19,7 +19,7 @@ export default async function Profile({
   }
   const user = data![0];
 
-  if (!user) {
+  if (!data) {
     return <div>Member not found!</div>;
   } else {
     return (
