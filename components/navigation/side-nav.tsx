@@ -2,6 +2,7 @@ import Link from "next/link";
 import NavLinks from "@/components/navigation/nav-links";
 import { FaSignOutAlt } from "react-icons/fa";
 import Image from "next/image";
+import { handleSignout } from "@/lib/supabase-utils/actions";
 
 export default function SideNav() {
   return (
@@ -23,13 +24,8 @@ export default function SideNav() {
       <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
         <NavLinks />
         <div className="hidden h-auto w-full grow rounded-md md:block"></div>
-        <form
-          action={async () => {
-            "use server";
-            //signout here
-          }}
-        >
-          <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md  p-3 text-md font-medium hover:bg-blue-300 hover:dark:bg-gray-600 hover:dark:text-white hover:text-black bg-blue-100 dark:bg-gray-900 md:flex-none md:p-2 md:px-3">
+        <form action={handleSignout}>
+          <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md  p-3 text-md font-medium hover:bg-blue-300 hover:dark:bg-gray-700 hover:dark:text-white hover:text-black bg-blue-100 dark:bg-gray-900 md:flex-none md:p-2 md:px-3">
             <FaSignOutAlt className="w-6" />
             <div className="hidden md:block">Sign Out</div>
           </button>

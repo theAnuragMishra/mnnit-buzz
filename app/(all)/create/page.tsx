@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-
+import { createPost } from "@/lib/supabase-utils/actions";
 import { lusitana } from "@/lib/font";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -27,16 +27,16 @@ const formSchema = z.object({
     .max(100),
   content: z.string().min(10),
   type: z.enum(["public", "private"]),
-  image: z
-    .any()
-    .refine((file) => file?.size <= 10000000, `Max image size is 10MB.`)
-    .refine(
-      (file) =>
-        ["image/jpeg", "image/jpg", "image/png", "image/webp"].includes(
-          file?.type
-        ),
-      "Only .jpg, .jpeg, .png and .webp formats are supported."
-    ),
+  // image: z
+  //   .any()
+  //   .refine((file) => file?.size <= 10000000, `Max image size is 10MB.`)
+  //   .refine(
+  //     (file) =>
+  //       ["image/jpeg", "image/jpg", "image/png", "image/webp"].includes(
+  //         file?.type
+  //       ),
+  //     "Only .jpg, .jpeg, .png and .webp formats are supported."
+  //   ),
 });
 
 export default function Create() {
@@ -46,13 +46,12 @@ export default function Create() {
       title: "",
       content: "",
       type: "public",
-      image: null,
+      // image: null,
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    console.log("hi");
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    await createPost(values);
   }
 
   return (

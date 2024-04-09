@@ -74,3 +74,48 @@ export async function setUserNameLogic(values: { username: string }) {
     description: "Redirecting you to your profile...",
   };
 }
+
+export async function handleSignout() {
+  const supabase = createClient();
+  await supabase.auth.signOut();
+  redirect("/");
+}
+
+export async function createPost(values: {
+  title: string;
+  content: string;
+  type: "public" | "private";
+}) {
+  const supabase = createClient();
+  const userData = await supabase.auth.getUser();
+  const userId = userData.data.user?.id;
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("username")
+    .eq("id", userId);
+  const username = data![0].username;
+
+  if (values.type === "public") {
+    const { data, error } = await supabase
+      .from("public_posts")
+      .insert({
+        title: values.title,
+        content: values.content,
+        poster_id: userId,
+      })
+      .select();
+    const postId = data![0].id;
+    redirect(`/member/${username}/posts/${postId}`);
+  } else {
+    const { data, error } = await supabase
+      .from("private_posts")
+      .insert({
+        title: values.title,
+        content: values.content,
+        poster_id: userId,
+      })
+      .select();
+    const postId = data![0].id;
+    redirect(`/member/${username}/posts/${postId}`);
+  }
+}
