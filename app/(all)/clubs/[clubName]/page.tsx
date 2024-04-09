@@ -1,13 +1,16 @@
-import { clubs } from "@/lib/utils";
+import { clubs } from "@/lib/data";
 import NotAClub from "@/components/not-a-club";
+import { lusitana } from "@/lib/font";
 
-export default function Page({
-  params,
-}: {
-  params: { communityName: string };
-}) {
-  if (!(params.communityName in clubs)) {
+export default function Page({ params }: { params: { clubName: string } }) {
+  if (!clubs.includes(params.clubName)) {
     return <NotAClub />;
   }
-  return <div>My Post: {params.communityName}</div>;
+  return (
+    <div>
+      <h1 className={`capitalize ${lusitana.className} mb-5`}>
+        {params.clubName}
+      </h1>
+    </div>
+  );
 }

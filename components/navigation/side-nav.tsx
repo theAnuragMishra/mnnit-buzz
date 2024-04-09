@@ -1,6 +1,7 @@
 import Link from "next/link";
 import NavLinks from "@/components/navigation/nav-links";
 import { FaSignOutAlt } from "react-icons/fa";
+import Image from "next/image";
 
 export default function SideNav() {
   return (
@@ -10,7 +11,13 @@ export default function SideNav() {
         href="/"
       >
         <div className="w-32 text-black dark:text-white md:w-60 text-[32px]">
-          logo here
+          <Image
+            src="/mnnit-buzz-yellow.png"
+            alt="mnnit-buzz logo"
+            width={395}
+            height={156}
+            priority={true}
+          />
         </div>
       </Link>
       <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
@@ -22,7 +29,7 @@ export default function SideNav() {
             //signout here
           }}
         >
-          <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md  p-3 text-md font-medium hover:bg-blue-300 hover:dark:bg-gray-700 hover:dark:text-white hover:text-black bg-blue-100 dark:bg-gray-900 md:flex-none md:p-2 md:px-3">
+          <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md  p-3 text-md font-medium hover:bg-blue-300 hover:dark:bg-gray-600 hover:dark:text-white hover:text-black bg-blue-100 dark:bg-gray-900 md:flex-none md:p-2 md:px-3">
             <FaSignOutAlt className="w-6" />
             <div className="hidden md:block">Sign Out</div>
           </button>
