@@ -2,7 +2,7 @@ export default function Messages(){
     return(
         <div>
 
-diary updated 
+diary updated again 
 
 
 
