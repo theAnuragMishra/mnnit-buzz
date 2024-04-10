@@ -2,7 +2,7 @@ export default function Messages(){
     return(
         <div>
 
-Messages
+messages updated 
 
 
 
