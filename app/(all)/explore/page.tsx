@@ -1,29 +1,36 @@
 import { lusitana, poppins } from "@/lib/font";
+
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+import PostCardsWrapper from "@/components/post-cards";
 
 export default async function Explore() {
   return (
     <div>
-      <h1 className={`${lusitana.className} text-5xl mb-5`}>Explore</h1>
-      <Card>
-        <CardHeader>
-          <CardTitle>Hi</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </CardDescription>
-        </CardContent>
-        <CardFooter>Bye</CardFooter>
-      </Card>
+      <div
+        className={`${lusitana.className} text-5xl mb-5 flex justify-between`}
+      >
+        Explore{" "}
+        <Select>
+          <SelectTrigger
+            className={`w-[90px] border-0 ${poppins.className} focus:border-0`}
+          >
+            <SelectValue placeholder="Sort" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="recent">Recent</SelectItem>
+            <SelectItem value="top">Top</SelectItem>
+            <SelectItem value="controversial">Controversial</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <PostCardsWrapper username={null} />
     </div>
   );
 }

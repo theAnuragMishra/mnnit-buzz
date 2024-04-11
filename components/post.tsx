@@ -1,10 +1,12 @@
 import { lusitana, roboto } from "@/lib/font";
+import Interactions from "@/components/interactions";
 import Link from "next/link";
 export default function Posts(props: {
   title: string;
   profiles: { username: string };
   content: string;
   timestamp: any;
+  post_id: string;
 }) {
   return (
     <div>
@@ -20,6 +22,9 @@ export default function Posts(props: {
       </div>
       <div className="w-full flex">
         <p className={`${roboto.className} text-lg w-2/3`}>{props.content}</p>
+      </div>
+      <div className="w-max mt-3">
+        <Interactions post_id={props.post_id} />
       </div>
     </div>
   );

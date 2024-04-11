@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase-utils/server";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { lusitana, poppins } from "@/lib/font";
 import Follow from "@/components/follow";
+import { returnFollowData } from "@/lib/supabase-utils/actions";
 
 export default async function Profile({
   params,
@@ -9,7 +10,9 @@ export default async function Profile({
   params: { userName: string };
 }) {
   const supabase = createClient();
-
+  const userData = await supabase.auth.getUser();
+  const id = userData.data.user?.id;
+  const followData = await returnFollowData(params.userName);
   const { data, error } = await supabase
     .from("profiles")
     .select()
@@ -26,7 +29,7 @@ export default async function Profile({
       <div>
         <Avatar className="h-[120px] w-[120px] mb-3">
           <AvatarImage src={user.avatar_url} alt={user.full_name} />
-          <AvatarFallback className="text-xl">
+          <AvatarFallback className="text-6xl">
             {user.full_name.charAt(0)}
           </AvatarFallback>
         </Avatar>
@@ -38,15 +41,23 @@ export default async function Profile({
           className={`flex flex-row ${poppins.className} text-lg text-gray-500 gap-5 mb-3`}
         >
           <div>
-            <span className="text-black dark:text-white">10</span> Followers
+            <span className="text-black dark:text-white">
+              {followData.follwers}
+            </span>{" "}
+            Followers
           </div>
           <div>
-            <span className="text-black dark:text-white">10</span> Following
+            <span className="text-black dark:text-white">
+              {followData.following}
+            </span>{" "}
+            Following
           </div>
         </div>
-        <div className="">
-          <Follow />
-        </div>
+        {data[0].id !== id && (
+          <div className="">
+            <Follow username={params.userName} />
+          </div>
+        )}
       </div>
     );
   }

@@ -30,6 +30,7 @@ export default async function Posts({
           content={fromPublicPosts.data![0].content}
           profiles={fromPublicPosts.data![0].profiles}
           timestamp={formatTimestamp(fromPublicPosts.data![0].updated_at)}
+          post_id={fromPublicPosts.data![0].id}
         />
       </div>
     );
@@ -41,6 +42,7 @@ export default async function Posts({
           content={fromPrivatePosts.data![0].content}
           profiles={fromPrivatePosts.data![0].profiles}
           timestamp={formatTimestamp(fromPrivatePosts.data![0].updated_at)}
+          post_id={fromPrivatePosts.data![0].id}
         />
       </div>
     );

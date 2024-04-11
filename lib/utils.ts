@@ -15,3 +15,16 @@ export function formatTimestamp(timestamp: any) {
 
   return `${day}-${month}-${year}, ${hour}:${minute}`;
 }
+
+export function sliceString(text: string) {
+  if (text.length <= 1000) {
+    return text;
+  } else {
+    let spaceIndex = text.indexOf(" ", 1000);
+    if (spaceIndex !== -1) {
+      return text.substring(0, spaceIndex);
+    } else {
+      return text.substring(0, 1000);
+    }
+  }
+}

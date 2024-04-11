@@ -1,8 +1,19 @@
 import SideNav from "@/components/navigation/side-nav";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Toaster } from "@/components/ui/toaster";
+import { createClient } from "@/lib/supabase-utils/server";
+import { redirect } from "next/navigation";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const supabase = createClient();
+  const userData = await supabase.auth.getUser();
+  if (!userData.data.user) {
+    redirect("/");
+  }
   return (
     <>
       <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
