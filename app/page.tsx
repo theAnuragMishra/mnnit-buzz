@@ -25,7 +25,7 @@ export default async function Home() {
           className={`${lusitana.className} lg:text-7xl text-5xl text-center`}
         >
           Where MNNITians{" "}
-          <span className="text-amber-600 dark:text-amber-600">
+          <span className="text-amber-600 dark:text-amber-600 block md:inline">
             <TypewriterComponent />
           </span>
         </div>
