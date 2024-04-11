@@ -10,7 +10,7 @@ import {
   returnCurrentUserVote,
   returnVoteCount,
 } from "@/lib/supabase-utils/actions";
-import { setInteractions } from "@/lib/supabase-utils/actions";
+import { manageInteractions } from "@/lib/supabase-utils/actions";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 
@@ -43,7 +43,7 @@ export default function Interactions(props: { post_id: string }) {
     isUpvote?: boolean;
     isDownvote?: boolean;
   }) {
-    await setInteractions(interactionParams);
+    await manageInteractions(interactionParams);
     if (interactionParams.interaction === "upvote") {
       if (isUpvote) {
         setIsUpvote(false);

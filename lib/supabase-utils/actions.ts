@@ -121,7 +121,7 @@ export async function createPost(values: {
   }
 }
 
-export async function setInteractions(interactionParams: {
+export async function manageInteractions(interactionParams: {
   interaction: "upvote" | "downvote";
   post_id: string;
   isUpvote?: boolean;
@@ -234,7 +234,13 @@ export async function returnVoteCount(post_id: string) {
   }
 }
 
-export async function setFollow(username: string) {
+export async function manageFollower({
+  username,
+  follow,
+}: {
+  username: string;
+  follow: boolean;
+}) {
   const supabase = createClient();
   const userData = await supabase.auth.getUser();
   const follower_id = userData.data.user?.id;
@@ -243,10 +249,17 @@ export async function setFollow(username: string) {
     .select("id")
     .eq("username", username);
   const user_id = data![0].id;
-
-  const { data: data2, error: error2 } = await supabase
-    .from("followers")
-    .insert({ user_id: user_id, follower_id: follower_id });
+  if (follow) {
+    const { data: data2, error: error2 } = await supabase
+      .from("followers")
+      .insert({ user_id: user_id, follower_id: follower_id });
+  } else {
+    const { data: data2, error: error2 } = await supabase
+      .from("followers")
+      .delete()
+      .eq("user_id", user_id)
+      .eq("follower_id", follower_id);
+  }
 }
 
 export async function returnFollowData(username: string) {
