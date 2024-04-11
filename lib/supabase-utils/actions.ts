@@ -241,6 +241,7 @@ export async function manageFollower({
   username: string;
   follow: boolean;
 }) {
+  console.log(follow);
   const supabase = createClient();
   const userData = await supabase.auth.getUser();
   const follower_id = userData.data.user?.id;
@@ -279,4 +280,24 @@ export async function returnFollowData(username: string) {
     .eq("user_id", id);
 
   return { follwers: followerCount, following: followingCount };
+}
+
+export async function followButtonState(username: string) {
+  const supabase = createClient();
+  const userData = await supabase.auth.getUser();
+  const follower_id = userData.data.user?.id;
+  const { data, error } = await supabase
+    .from("follower_following")
+    .select("id")
+    .eq("follower_id", follower_id)
+    .eq("user_id", username);
+  if (data) {
+    if (data[0]) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
 }

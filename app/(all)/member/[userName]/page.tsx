@@ -12,7 +12,7 @@ export default async function Profile({
   const supabase = createClient();
   const userData = await supabase.auth.getUser();
   const id = userData.data.user?.id;
-  const followData = await returnFollowData(params.userName);
+
   const { data, error } = await supabase
     .from("profiles")
     .select()
@@ -22,9 +22,16 @@ export default async function Profile({
   }
   const user = data![0];
 
-  if (!data) {
-    return <div>Member not found!</div>;
+  if (!user) {
+    return (
+      <div
+        className={`flex justify-center items-center text-7xl ${lusitana.className} h-2/3`}
+      >
+        Member not found!
+      </div>
+    );
   } else {
+    const followData = await returnFollowData(params.userName);
     return (
       <div>
         <Avatar className="h-[120px] w-[120px] mb-3">
@@ -53,7 +60,7 @@ export default async function Profile({
             Following
           </div>
         </div>
-        {data[0].id !== id && (
+        {user.id !== id && (
           <div className="">
             <Follow username={params.userName} />
           </div>
