@@ -54,7 +54,8 @@ export default async function PostCardsWrapper(props: {
     const { data, error } = await supabase
       .from("public_posts")
       .select("*, profiles!inner(username, full_name)")
-      .eq("profiles.username", props.username);
+      .eq("profiles.username", props.username)
+      .order("updated_at", { ascending: false });
     return (
       <div className="gap-3 flex flex-col">
         {data!.map((post: any) => (
@@ -69,7 +70,9 @@ export default async function PostCardsWrapper(props: {
   } else {
     const { data, error } = await supabase
       .from("public_posts")
-      .select("*, profiles!inner(username, full_name)");
+      .select("*, profiles!inner(username, full_name)")
+      .order("updated_at", { ascending: false })
+      .limit(100);
     return (
       <div className="gap-3 flex flex-col">
         {data!.map((post: any) => (

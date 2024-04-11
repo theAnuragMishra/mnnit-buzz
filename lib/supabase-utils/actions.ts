@@ -102,9 +102,14 @@ export async function createPost(values: {
       })
       .select();
     const postId = data![0].id;
-    revalidatePath(`/member/${username}/posts/`);
-    revalidatePath(`/explore`);
-    redirect(`/member/${username}/posts/${postId}`);
+    if (username) {
+      revalidatePath(`/member/${username}/posts/`);
+      revalidatePath(`/explore`);
+      redirect(`/member/${username}/posts/${postId}`);
+    } else {
+      revalidatePath(`/explore`);
+      redirect(`/explore`);
+    }
   } else {
     const { data, error } = await supabase
       .from("private_posts")
@@ -115,9 +120,13 @@ export async function createPost(values: {
       })
       .select();
     const postId = data![0].id;
-    revalidatePath(`/member/${username}/posts/`);
-    revalidatePath(`/explore`);
-    redirect(`/member/${username}/posts/${postId}`);
+    if (username) {
+      revalidatePath(`/member/${username}/posts/`);
+      revalidatePath(`/explore`);
+      redirect(`/member/${username}/posts/${postId}`);
+    } else {
+      redirect(`/set-username`);
+    }
   }
 }
 
