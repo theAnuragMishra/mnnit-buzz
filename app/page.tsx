@@ -18,7 +18,9 @@ export default async function Home() {
       </div>
 
       <div className="flex flex-col gap-5 h-[60vh] items-center justify-center px-4">
-        <h1 className={`text-4xl ${poppins.className} mb-5 text-center`}>
+        <h1
+          className={`text-3xl lg:text-4xl ${poppins.className} mb-5 text-center`}
+        >
           Welcome to MNNIT Buzz!
         </h1>
         <div
