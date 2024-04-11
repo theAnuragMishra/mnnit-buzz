@@ -17,7 +17,7 @@ export default async function Home() {
         <ModeToggle />
       </div>
 
-      <div className="flex flex-col gap-5 h-[60vh] items-center justify-center">
+      <div className="flex flex-col gap-5 h-[60vh] items-center justify-center px-4">
         <h1 className={`text-4xl ${poppins.className} mb-5 text-center`}>
           Welcome to MNNIT Buzz!
         </h1>
