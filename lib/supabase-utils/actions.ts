@@ -251,11 +251,11 @@ export async function manageFollower({
   const user_id = data![0].id;
   if (follow) {
     const { data: data2, error: error2 } = await supabase
-      .from("followers")
+      .from("follower_following")
       .insert({ user_id: user_id, follower_id: follower_id });
   } else {
     const { data: data2, error: error2 } = await supabase
-      .from("followers")
+      .from("follower_following")
       .delete()
       .eq("user_id", user_id)
       .eq("follower_id", follower_id);
