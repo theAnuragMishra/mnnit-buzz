@@ -14,7 +14,7 @@ export default async function People() {
   return (
     <div>
       <h1 className={`${lusitana.className} text-5xl mb-5`}>People</h1>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {data!.map((user: any) => {
           if (user.username) {
             return (

@@ -43,7 +43,6 @@ export default function Interactions(props: { post_id: string }) {
     isUpvote?: boolean;
     isDownvote?: boolean;
   }) {
-    await manageInteractions(interactionParams);
     if (interactionParams.interaction === "upvote") {
       if (isUpvote) {
         setIsUpvote(false);
@@ -69,6 +68,8 @@ export default function Interactions(props: { post_id: string }) {
         setVotes((prev) => prev + 1);
       }
     }
+
+    await manageInteractions(interactionParams);
   }
   return (
     <div className="flex border-2 rounded-lg">

@@ -20,7 +20,7 @@ export default function Posts(props: {
         </p>
         <p className="text-gray-600 dark:text-gray-400">{props.timestamp}</p>
       </div>
-      <div className="w-full flex">
+      <div className="w-full flex mt-6">
         <p className={`${roboto.className} text-lg w-2/3`}>{props.content}</p>
       </div>
       <div className="w-max mt-3">

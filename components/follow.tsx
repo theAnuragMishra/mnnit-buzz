@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { manageFollower } from "@/lib/supabase-utils/actions";
 import { useState, useEffect, use } from "react";
 import { followButtonState } from "@/lib/supabase-utils/actions";
+import clsx from "clsx";
 
 export default function Follow(props: { username: string }) {
   const [follow, setFollow] = useState(true);
@@ -21,7 +22,9 @@ export default function Follow(props: { username: string }) {
     <div>
       <Button
         variant="outline"
-        className="text-lg"
+        className={clsx("text-lg bg-green-400 dark:bg-green-600", {
+          "bg-red-500 dark:bg-red-400": !follow,
+        })}
         onClick={() => {
           handleFollowButtonClick();
         }}
