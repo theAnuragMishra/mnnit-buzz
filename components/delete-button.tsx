@@ -15,8 +15,12 @@ export default function Delete(props: {
     });
   }
   return (
-    <Button variant={`outline`} className="text-xl" onClick={handleDelete}>
-      Delete Post
+    <Button
+      variant={`outline`}
+      className="text-xl group"
+      onClick={handleDelete}
+    >
+      <span className="hidden group-hover:block">Delete &nbsp;</span>
       <MdDelete className="inline text-red-500 " />
     </Button>
   );
