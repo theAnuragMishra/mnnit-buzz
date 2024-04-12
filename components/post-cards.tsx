@@ -10,8 +10,14 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase-utils/server";
 import { sliceString } from "@/lib/utils";
 import Interactions from "./interactions";
+import {
+  returnCurrentUserVote,
+  returnVoteCount,
+} from "@/lib/supabase-utils/actions";
 
-export function PostCard(props: { post: any; slicedContent: string }) {
+export async function PostCard(props: { post: any; slicedContent: string }) {
+  const currentUserVote = await returnCurrentUserVote(props.post.id);
+  const voteCount = await returnVoteCount(props.post.id);
   return (
     <Card key={props.post.id}>
       <CardHeader>
@@ -39,7 +45,11 @@ export function PostCard(props: { post: any; slicedContent: string }) {
         </CardDescription>
       </CardContent>
       <CardFooter>
-        <Interactions post_id={props.post.id} />
+        <Interactions
+          post_id={props.post.id}
+          currentUserVote={currentUserVote}
+          voteCount={voteCount}
+        />
       </CardFooter>
     </Card>
   );
