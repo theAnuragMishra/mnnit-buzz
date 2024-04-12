@@ -7,8 +7,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+import { Suspense } from "react";
 import PostCardsWrapper from "@/components/post-cards";
+import { PostCardsWrapperSkeleton } from "@/components/skeletons";
 
 export default async function Explore() {
   return (
@@ -30,7 +31,9 @@ export default async function Explore() {
           </SelectContent>
         </Select>
       </div>
-      <PostCardsWrapper username={null} />
+      <Suspense fallback={<PostCardsWrapperSkeleton />}>
+        <PostCardsWrapper username={null} />
+      </Suspense>
     </div>
   );
 }
