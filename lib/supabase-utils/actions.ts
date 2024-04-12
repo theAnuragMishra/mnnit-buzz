@@ -313,3 +313,20 @@ export async function followButtonState(username: string) {
     return true;
   }
 }
+
+export async function createComment(
+  values: { comment: string },
+  postData: { post_id: string; posteruserName: string }
+) {
+  const supabase = createClient();
+  const userData = await supabase.auth.getUser();
+  const userId = userData.data.user?.id;
+  const { error } = await supabase.from("comments").insert({
+    content: values.comment,
+    post_id: postData.post_id,
+    commenter_id: userId,
+  });
+  revalidatePath(
+    `/member/${postData.posteruserName}/posts/${postData.post_id}`
+  );
+}
