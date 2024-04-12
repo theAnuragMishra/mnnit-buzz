@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { manageFollower } from "@/lib/supabase-utils/actions";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import clsx from "clsx";
 
@@ -9,17 +9,7 @@ export default function Follow(props: {
   username: string;
   followButtonStateData: boolean;
 }) {
-  const [follow, setFollow] = useState(true);
-  // useEffect(() => {
-  //   const getFollowState = async () => {
-  //     const data = await followButtonState(props.username);
-  //     setFollow(data);
-  //   };
-  //   getFollowState();
-  // }, [props.username]);
-  useEffect(() => {
-    setFollow(props.followButtonStateData);
-  }, [props.followButtonStateData]);
+  const [follow, setFollow] = useState(props.followButtonStateData);
 
   async function handleFollowButtonClick() {
     await manageFollower({ username: props.username, follow });
