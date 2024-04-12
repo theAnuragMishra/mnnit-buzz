@@ -17,7 +17,7 @@ export default function Loading() {
               </div>
             </div>
             <div>
-              <Skeleton className="w-[100px] h-[40px]" />
+              <Skeleton className="w-[150px] h-[30px]" />
             </div>
           </div>
         ))}

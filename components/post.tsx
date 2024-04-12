@@ -28,7 +28,9 @@ export default async function Posts(props: {
 
   return (
     <div>
-      <h1 className={`${lusitana.className} text-5xl mb-1`}>{props.title}</h1>
+      <h1 className={`${lusitana.className} text-3xl sm:text-5xl mb-1`}>
+        {props.title}
+      </h1>
       <div className="flex flex-row gap-5 w-full justify-between px-0">
         <p className="text-gray-500">
           by{" "}

@@ -115,7 +115,7 @@ export default function Comments(props: {
 
               <div className="w-full">
                 <div
-                  className={`${lusitana.className} text-lg flex flex-col md:flex-row justify-between gap-2 w-full`}
+                  className={`${lusitana.className} text-lg flex flex-row justify-between gap-2 w-full`}
                 >
                   <span>{comment.profiles.full_name}</span>{" "}
                   <span> {timeAgo(comment.updated_at)}</span>

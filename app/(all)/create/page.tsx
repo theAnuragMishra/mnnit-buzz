@@ -60,7 +60,9 @@ export default function Create() {
 
   return (
     <div>
-      <h1 className={`${lusitana.className} text-5xl mb-5`}>Create</h1>
+      <h1 className={`${lusitana.className} text-3xl sm:text-5xl mb-5`}>
+        Create
+      </h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField

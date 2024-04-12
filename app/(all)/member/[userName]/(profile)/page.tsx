@@ -44,13 +44,18 @@ export default async function Profile({
 
     return (
       <div>
+        <h1 className={`${lusitana.className} text-3xl sm:text-5xl mb-5 `}>
+          Profile
+        </h1>
         <Avatar className="h-[120px] w-[120px] mb-3">
           <AvatarImage src={user.avatar_url} alt={user.full_name} />
           <AvatarFallback className="text-6xl">
             {user.full_name.charAt(0)}
           </AvatarFallback>
         </Avatar>
-        <h1 className={`capitalize ${lusitana.className} text-4xl `}>
+        <h1
+          className={`capitalize ${lusitana.className} text-2xl sm:text-4xl `}
+        >
           {user.full_name}
         </h1>
         <div className="text-gray-400 mb-8">@{params.userName}</div>

@@ -15,7 +15,9 @@ export default async function Posts({
     .eq("profiles.username", params.userName);
   return (
     <div>
-      <h1 className={`${lusitana.className} mb-5 text-5xl capitalize`}>
+      <h1
+        className={`${lusitana.className} mb-5 text-3xl sm:text-5xl capitalize`}
+      >
         {data![0].profiles.full_name}&apos;s Posts
       </h1>
       <Suspense fallback={<PostCardsWrapperSkeleton />}>

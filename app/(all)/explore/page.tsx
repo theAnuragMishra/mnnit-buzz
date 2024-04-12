@@ -15,7 +15,7 @@ export default async function Explore() {
   return (
     <div>
       <div
-        className={`${lusitana.className} text-5xl mb-5 flex justify-between`}
+        className={`${lusitana.className} text-3xl sm:text-5xl mb-5 flex justify-between`}
       >
         Explore{" "}
         <Select>

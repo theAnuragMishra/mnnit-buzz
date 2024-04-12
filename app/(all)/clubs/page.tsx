@@ -12,8 +12,10 @@ import Link from "next/link";
 export default async function Clubs() {
   return (
     <div>
-      <h1 className={`${lusitana.className} text-5xl mb-5`}>Clubs</h1>
-      <div className="clubs grid grid-cols-2 gap-4">
+      <h1 className={`${lusitana.className} text-3xl sm:text-5xl mb-5`}>
+        Clubs
+      </h1>
+      <div className="clubs grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4">
         {clubData.map((item) => (
           <Card key={item.name}>
             <CardHeader>
