@@ -16,8 +16,10 @@ export default function Interactions(props: {
   currentUserVote: { upVoted: boolean; downVoted: boolean };
   voteCount: number;
 }) {
-  const [isUpvote, setIsUpvote] = useState(props.currentUserVote.downVoted);
-  const [isDownvote, setIsDownvote] = useState(props.currentUserVote.upVoted);
+  const [isUpvote, setIsUpvote] = useState(!props.currentUserVote.upVoted);
+  const [isDownvote, setIsDownvote] = useState(
+    !props.currentUserVote.downVoted
+  );
   const [votes, setVotes] = useState(props.voteCount);
 
   // useEffect(() => {
