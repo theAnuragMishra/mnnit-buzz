@@ -3,7 +3,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { lusitana, poppins } from "@/lib/font";
 import Follow from "@/components/follow";
 import { returnFollowData } from "@/lib/supabase-utils/actions";
-
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 export default async function Profile({
   params,
 }: {
@@ -21,6 +22,10 @@ export default async function Profile({
     console.error(error);
   }
   const user = data![0];
+  const { count, error: countError } = await supabase
+    .from("public_posts")
+    .select("", { count: "exact", head: true })
+    .eq("poster_id", user.id);
 
   if (!user) {
     return (
@@ -60,6 +65,13 @@ export default async function Profile({
             Following
           </div>
         </div>
+
+        <Button asChild className="text-lg" variant={`outline`}>
+          <Link href={`/member/${params.userName}/posts`}>
+            {count} public posts
+          </Link>
+        </Button>
+
         {user.id !== id && (
           <div className="">
             <Follow username={params.userName} />
