@@ -295,18 +295,21 @@ export async function followButtonState(username: string) {
   const supabase = createClient();
   const userData = await supabase.auth.getUser();
   const follower_id = userData.data.user?.id;
+  const { data: followedPersonData, error: followedPersonError } =
+    await supabase.from("profiles").select("id").eq("username", username);
   const { data, error } = await supabase
     .from("follower_following")
     .select("id")
     .eq("follower_id", follower_id)
-    .eq("user_id", username);
+    .eq("user_id", followedPersonData![0].id);
+
   if (data) {
     if (data[0]) {
-      return true;
-    } else {
       return false;
+    } else {
+      return true;
     }
   } else {
-    return false;
+    return true;
   }
 }
