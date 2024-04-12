@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { returnPaths } from "@/lib/supabase-utils/actions";
 import { MdOutlineExplore } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
-import { GiNotebook, GiMeepleGroup } from "react-icons/gi";
+import { GiMeepleGroup } from "react-icons/gi";
 import { IoPersonCircle } from "react-icons/io5";
 import { FaPager } from "react-icons/fa";
 import { TiGroup } from "react-icons/ti";
@@ -29,11 +29,7 @@ export default function NavLinks() {
     { name: "Explore", href: "/explore", icon: MdOutlineExplore },
     { name: "Create", href: "/create", icon: FaPlus },
     { name: "My Posts", href: paths.myPostsPath, icon: FaPager },
-    {
-      name: "Diary",
-      href: "/diary",
-      icon: GiNotebook,
-    },
+    
     { name: "People", href: "/people", icon: TiGroup },
     { name: "Clubs", href: "/clubs", icon: GiMeepleGroup },
 
