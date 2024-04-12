@@ -9,6 +9,7 @@ import { createPost } from "@/lib/supabase-utils/actions";
 import { lusitana } from "@/lib/font";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useState } from "react";
 
 import {
   Form,
@@ -40,6 +41,7 @@ const formSchema = z.object({
 });
 
 export default function Create() {
+  const [isDisabled, setIsDisabled] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -51,7 +53,9 @@ export default function Create() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsDisabled(true);
     await createPost(values);
+    form.reset();
   }
 
   return (
@@ -123,7 +127,9 @@ export default function Create() {
               </FormItem>
             )}
           /> */}
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={isDisabled}>
+            Submit
+          </Button>
         </form>
       </Form>
     </div>
