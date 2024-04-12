@@ -7,15 +7,18 @@ import {
   returnCurrentUserVote,
   returnVoteCount,
 } from "@/lib/supabase-utils/actions";
+import Delete from "@/components/delete-button";
 
 export default async function Posts(props: {
   title: string;
-  profiles: { username: string };
+  profiles: { username: string; id: string };
   content: string;
   timestamp: any;
   post_id: string;
 }) {
   const supabase = createClient();
+  const userData = await supabase.auth.getUser();
+  const id = userData.data.user?.id;
   const { data, error } = await supabase
     .from("comments")
     .select("*, profiles!inner(full_name, avatar_url)")
@@ -31,6 +34,7 @@ export default async function Posts(props: {
       <h1 className={`${lusitana.className} text-3xl sm:text-5xl mb-1`}>
         {props.title}
       </h1>
+
       <div className="flex flex-row gap-5 w-full justify-between px-0">
         <p className="text-gray-500">
           by{" "}
@@ -40,15 +44,24 @@ export default async function Posts(props: {
         </p>
         <p className="text-gray-600 dark:text-gray-400">{props.timestamp}</p>
       </div>
+
       <div className="w-full flex mt-6">
         <p className={`${roboto.className} text-lg w-2/3`}>{props.content}</p>
       </div>
-      <div className="w-max mt-3">
-        <Interactions
-          post_id={props.post_id}
-          currentUserVote={currentUserVote}
-          voteCount={voteCount}
-        />
+      <div className="flex w-full justify-between mt-3">
+        <div className="w-max ">
+          <Interactions
+            post_id={props.post_id}
+            currentUserVote={currentUserVote}
+            voteCount={voteCount}
+          />
+        </div>
+        {id === props.profiles.id && (
+          <Delete
+            post_id={props.post_id}
+            posterUserName={props.profiles.username}
+          />
+        )}
       </div>
       <div>
         <Comments

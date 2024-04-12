@@ -22,7 +22,7 @@ export default async function People() {
             return (
               <Link
                 key={user.id}
-                className="flex flex-col gap-5 hover:bg-neutral-200 hover:dark:bg-neutral-900 w-[300px] rounded-lg px-8 py-3"
+                className="flex flex-col gap-5 hover:bg-neutral-200 hover:dark:bg-neutral-900 w-max rounded-lg px-8 py-3"
                 href={`/member/${user.username}`}
               >
                 <div>

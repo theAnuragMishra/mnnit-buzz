@@ -331,3 +331,33 @@ export async function createComment(
     `/member/${postData.posteruserName}/posts/${postData.post_id}`
   );
 }
+
+export async function deletePost(postData: {
+  post_id: string;
+  posteruserName: string;
+}) {
+  const supabase = createClient();
+  const { error } = await supabase
+    .from("public_posts")
+    .delete()
+    .eq("id", postData.post_id);
+  revalidatePath(`/member/${postData.posteruserName}/posts/`);
+  redirect(`/member/${postData.posteruserName}/posts/`);
+}
+
+export async function deleteComment(
+  comment_id: string,
+  postData: {
+    post_id: string;
+    posteruserName: string;
+  }
+) {
+  const supabase = createClient();
+  const { error } = await supabase
+    .from("comments")
+    .delete()
+    .eq("id", comment_id);
+  revalidatePath(
+    `/member/${postData.posteruserName}/posts/${postData.post_id}`
+  );
+}
