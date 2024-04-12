@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/form";
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
-import { time } from "console";
 
 const formSchema = z.object({
   comment: z.string().min(1, { message: "Comment cannot be empty!" }).max(500),
