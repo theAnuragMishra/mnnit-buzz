@@ -5,7 +5,7 @@ import { useState, useEffect, use } from "react";
 import { followButtonState } from "@/lib/supabase-utils/actions";
 
 export default function Follow(props: { username: string }) {
-  const [follow, setFollow] = useState(false);
+  const [follow, setFollow] = useState(true);
   useEffect(() => {
     const getFollowState = async () => {
       const data = await followButtonState(props.username);
@@ -14,8 +14,8 @@ export default function Follow(props: { username: string }) {
     getFollowState();
   }, [props.username]);
   async function handleFollowButtonClick() {
-    setFollow((prev) => !prev);
     await manageFollower({ username: props.username, follow });
+    setFollow((prev) => !prev);
   }
   return (
     <div>
@@ -26,7 +26,7 @@ export default function Follow(props: { username: string }) {
           handleFollowButtonClick();
         }}
       >
-        {follow ? <span>Unfollow</span> : <span>Follow</span>}
+        {follow ? <span>Follow</span> : <span>Unfollow</span>}
       </Button>
     </div>
   );
