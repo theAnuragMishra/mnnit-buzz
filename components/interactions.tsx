@@ -6,36 +6,35 @@ import {
   BiDownvote,
   BiSolidDownvote,
 } from "react-icons/bi";
-import {
-  returnCurrentUserVote,
-  returnVoteCount,
-} from "@/lib/supabase-utils/actions";
+
 import { manageInteractions } from "@/lib/supabase-utils/actions";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 
-export default function Interactions(props: { post_id: string }) {
-  const [isUpvote, setIsUpvote] = useState(true);
-  const [isDownvote, setIsDownvote] = useState(true);
-  const [votes, setVotes] = useState(0);
+export default function Interactions(props: {
+  post_id: string;
+  currentUserVote: { upVoted: boolean; downVoted: boolean };
+  voteCount: number;
+}) {
+  const [isUpvote, setIsUpvote] = useState(props.currentUserVote.downVoted);
+  const [isDownvote, setIsDownvote] = useState(props.currentUserVote.upVoted);
+  const [votes, setVotes] = useState(props.voteCount);
 
-  useEffect(() => {
-    const getVotes = async () => {
-      const data = await returnCurrentUserVote(props.post_id);
-      const voteCount = await returnVoteCount(props.post_id);
-
-      setVotes(voteCount);
-      if (data.downVoted) {
-        setIsUpvote(true);
-        setIsDownvote(false);
-      }
-      if (data.upVoted) {
-        setIsDownvote(true);
-        setIsUpvote(false);
-      }
-    };
-    getVotes();
-  }, [props.post_id]);
+  // useEffect(() => {
+  //   setVotes(props.voteCount);
+  //   if (props.currentUserVote.downVoted) {
+  //     setIsUpvote(true);
+  //     setIsDownvote(false);
+  //   }
+  //   if (props.currentUserVote.upVoted) {
+  //     setIsDownvote(true);
+  //     setIsUpvote(false);
+  //   }
+  // }, [
+  //   props.voteCount,
+  //   props.currentUserVote.downVoted,
+  //   props.currentUserVote.upVoted,
+  // ]);
 
   async function handleInteractions(interactionParams: {
     interaction: "upvote" | "downvote";

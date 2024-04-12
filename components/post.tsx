@@ -3,6 +3,10 @@ import Interactions from "@/components/interactions";
 import Comments from "@/components/comments";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase-utils/server";
+import {
+  returnCurrentUserVote,
+  returnVoteCount,
+} from "@/lib/supabase-utils/actions";
 
 export default async function Posts(props: {
   title: string;
@@ -18,6 +22,9 @@ export default async function Posts(props: {
     .eq("post_id", props.post_id)
     .order("updated_at", { ascending: false });
   const comments = data;
+
+  const currentUserVote = await returnCurrentUserVote(props.post_id);
+  const voteCount = await returnVoteCount(props.post_id);
 
   return (
     <div>
@@ -35,7 +42,11 @@ export default async function Posts(props: {
         <p className={`${roboto.className} text-lg w-2/3`}>{props.content}</p>
       </div>
       <div className="w-max mt-3">
-        <Interactions post_id={props.post_id} />
+        <Interactions
+          post_id={props.post_id}
+          currentUserVote={currentUserVote}
+          voteCount={voteCount}
+        />
       </div>
       <div>
         <Comments

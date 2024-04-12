@@ -264,6 +264,7 @@ export async function manageFollower({
       .from("follower_following")
       .insert({ user_id: user_id, follower_id: follower_id });
   } else {
+    console.log("unfollowng u ");
     const { data: data2, error: error2 } = await supabase
       .from("follower_following")
       .delete()
