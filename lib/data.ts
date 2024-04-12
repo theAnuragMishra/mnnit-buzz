@@ -5,6 +5,11 @@ export const clubs = [
   "programming",
   "literary",
   "robotics",
+  "music",
+  "astronomy",
+  "aeronautics",
+  "dramatics",
+  "sports", 
 ];
 
 export const clubData = [
@@ -50,4 +55,45 @@ export const clubData = [
       "MNNIT Robotics Club is one of the most popular chess clubs in India!",
     link: "/clubs/robotics",
   },
+
+  {
+    name: "Music",
+    imageSource: "xyz",
+    description:
+      "MNNIT Music Club is one of the most popular chess clubs in India!",
+    link: "/clubs/music",
+  },
+
+  {
+    name: "Astronomy",
+    imageSource: "xyz",
+    description:
+      "MNNIT Astronomy Club is one of the most popular chess clubs in India!",
+    link: "/clubs/astronomy",
+  },
+
+  {
+    name: "Aeronautics",
+    imageSource: "xyz",
+    description:
+      "MNNIT Aeronautics Club is one of the most popular chess clubs in India!",
+    link: "/clubs/aeronautics",
+  },
+
+  {
+    name: "Dramatics",
+    imageSource: "xyz",
+    description:
+      "MNNIT Dramatics Club is one of the most popular chess clubs in India!",
+    link: "/clubs/dramatics",
+  },
+
+  {
+    name: "Sports",
+    imageSource: "xyz",
+    description:
+      "MNNIT Sports Club is one of the most popular chess clubs in India!",
+    link: "/clubs/sports",
+  },
 ];
+
