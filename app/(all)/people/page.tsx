@@ -34,7 +34,7 @@ export default async function People() {
                 </div>
                 <div>
                   <h2 className="text-xl">{user.full_name}</h2>
-                  <p className="text-gray-400">@{user.username}</p>
+                  <p className="text-gray-400">@{user.username}</p><p>{(user.updated_at).toDateString()}</p>
                 </div>
               </Link>
             );
