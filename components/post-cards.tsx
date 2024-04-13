@@ -25,7 +25,11 @@ export async function PostCard(props: { post: any; slicedContent: string }) {
       <CardHeader>
         <CardTitle className="flex flex-col">
           <div className="leading-relaxed text-xl md:text-2xl">
-            {props.post.title}
+            <Link
+              href={`/member/${props.post.profiles.username}/posts/${props.post.id}`}
+            >
+              {props.post.title}
+            </Link>
           </div>{" "}
           <div className="text-sm flex">
             <Link

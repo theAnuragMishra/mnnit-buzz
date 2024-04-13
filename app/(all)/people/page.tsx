@@ -60,7 +60,7 @@ export default async function People({
           }
         })}
       </div>
-      <div className="w-full flex justify-center mt-3">
+      <div className="w-full flex justify-center mt-5">
         <Pagination totalPages={totalPages} />
       </div>
     </div>
