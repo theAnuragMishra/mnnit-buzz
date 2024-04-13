@@ -57,15 +57,28 @@ export async function PostCard(props: { post: any; slicedContent: string }) {
 
 export default async function PostCardsWrapper(props: {
   username: string | null;
+  query: string;
+  currentPage: number;
 }) {
+  const itemsPerPage = 20;
+  const offset = (props.currentPage - 1) * itemsPerPage;
   const supabase = createClient();
-  const today = new Date().toISOString().split("T")[0];
+
   if (props.username) {
     const { data, error } = await supabase
       .from("public_posts")
       .select("*, profiles!inner(username, full_name)")
       .eq("profiles.username", props.username)
-      .order("updated_at", { ascending: false });
+      .ilike("title", `%${props.query}%`)
+      .order("updated_at", { ascending: false })
+      .range(offset, offset + itemsPerPage - 1);
+    if (data!.length === 0) {
+      return (
+        <div key={1} className=" text-2xl md:4xl">
+          No such post 😭.
+        </div>
+      );
+    }
     return (
       <div className="gap-3 flex flex-col">
         {data!.map((post: any) => (
@@ -82,7 +95,15 @@ export default async function PostCardsWrapper(props: {
       .from("public_posts")
       .select("*, profiles!inner(username, full_name)")
       .order("updated_at", { ascending: false })
-      .limit(100);
+      .ilike("title", `%${props.query}%`)
+      .range(offset, offset + itemsPerPage - 1);
+    if (data!.length === 0) {
+      return (
+        <div key={1} className=" text-2xl md:4xl">
+          No such post 😭.
+        </div>
+      );
+    }
     return (
       <div className="gap-3 flex flex-col">
         {data!.map((post: any) => (

@@ -361,3 +361,29 @@ export async function deleteComment(
     `/member/${postData.posteruserName}/posts/${postData.post_id}`
   );
 }
+
+export async function fetchPostPages(query: string, username: string | null) {
+  const itemsPerPage = 20; //setting number of items per page
+  unstable_noStore();
+
+  const supabase = createClient();
+  if (username) {
+    const { count, error } = await supabase
+      .from("public_posts")
+      .select("id, profiles!inner(username, full_name)", {
+        count: "exact",
+        head: true,
+      })
+      .eq("profiles.username", username)
+      .ilike("title", `%${query}%`);
+    const totalPages = Math.ceil(Number(count) / itemsPerPage);
+    return totalPages;
+  } else {
+    const { count, error } = await supabase
+      .from("public_posts")
+      .select("id", { count: "exact", head: true })
+      .ilike("title", `%${query}%`);
+    const totalPages = Math.ceil(Number(count) / itemsPerPage);
+    return totalPages;
+  }
+}

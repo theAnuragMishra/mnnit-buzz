@@ -1,39 +1,42 @@
 import { lusitana, poppins } from "@/lib/font";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Suspense } from "react";
 import PostCardsWrapper from "@/components/post-cards";
 import { PostCardsWrapperSkeleton } from "@/components/skeletons";
+import Search from "@/components/search";
+import Pagination from "@/components/pagination";
+import { fetchPostPages } from "@/lib/supabase-utils/actions";
 
-export default async function Explore() {
+export default async function Explore({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string;
+    page?: string;
+  };
+}) {
+  const query = searchParams?.query || "";
+  const currentPage = Number(searchParams?.page) || 1;
+  const totalPages = await fetchPostPages(query, null);
+
   return (
     <div>
       <div
         className={`${lusitana.className} text-3xl sm:text-5xl mb-5 flex justify-between`}
       >
-        Explore{" "}
-        <Select>
-          <SelectTrigger
-            className={`w-[90px] border-0 ${poppins.className} focus:border-0`}
-          >
-            <SelectValue placeholder="Sort" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="recent">Recent</SelectItem>
-            <SelectItem value="top">Top</SelectItem>
-            <SelectItem value="controversial">Controversial</SelectItem>
-          </SelectContent>
-        </Select>
+        Explore
       </div>
+      <Search placeholder="Search posts..." />
       <Suspense fallback={<PostCardsWrapperSkeleton />}>
-        <PostCardsWrapper username={null} />
+        <PostCardsWrapper
+          username={null}
+          query={query}
+          currentPage={currentPage}
+        />
       </Suspense>
+      <div className="w-full flex justify-center mt-3">
+        <Pagination totalPages={totalPages} />
+      </div>
     </div>
   );
 }

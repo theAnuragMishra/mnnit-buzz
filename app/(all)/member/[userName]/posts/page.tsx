@@ -3,11 +3,23 @@ import { createClient } from "@/lib/supabase-utils/server";
 import PostCardsWrapper from "@/components/post-cards";
 import { Suspense } from "react";
 import { PostCardsWrapperSkeleton } from "@/components/skeletons";
+import Search from "@/components/search";
+import { fetchPostPages } from "@/lib/supabase-utils/actions";
+import Pagination from "@/components/pagination";
 export default async function Posts({
   params,
+  searchParams,
 }: {
   params: { userName: string };
+  searchParams?: {
+    query?: string;
+    page?: string;
+  };
 }) {
+  const query = searchParams?.query || "";
+  const currentPage = Number(searchParams?.page) || 1;
+  const totalPages = await fetchPostPages(query, params.userName);
+
   const supabase = createClient();
   const { data, error } = await supabase
     .from("public_posts")
@@ -20,9 +32,17 @@ export default async function Posts({
       >
         {data![0].profiles.full_name}&apos;s Posts
       </h1>
+      <Search placeholder="Search posts..." />
       <Suspense fallback={<PostCardsWrapperSkeleton />}>
-        <PostCardsWrapper username={params.userName} />
+        <PostCardsWrapper
+          username={params.userName}
+          query={query}
+          currentPage={currentPage}
+        />
       </Suspense>
+      <div className="w-full flex justify-center mt-3">
+        <Pagination totalPages={totalPages} />
+      </div>
     </div>
   );
 }
