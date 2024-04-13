@@ -11,12 +11,12 @@ export default async function Posts({
 
   const fromPublicPosts = await supabase
     .from("public_posts")
-    .select("*, profiles!inner(username, id)")
+    .select("*, profiles!inner(username, id, full_name, avatar_url)")
     .eq("id", params.postId)
     .eq("profiles.username", params.userName);
   const fromPrivatePosts = await supabase
     .from("private_posts")
-    .select("*, profiles!inner(username, id)")
+    .select("*, profiles!inner(username, id, full_name, avatar_url)")
     .eq("id", params.postId)
     .eq("profiles.username", params.userName);
 

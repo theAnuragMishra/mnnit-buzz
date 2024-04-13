@@ -6,6 +6,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 import Link from "next/link";
 import { createClient } from "@/lib/supabase-utils/server";
 import { sliceString } from "@/lib/utils";
@@ -22,12 +24,20 @@ export async function PostCard(props: { post: any; slicedContent: string }) {
     <Card key={props.post.id}>
       <CardHeader>
         <CardTitle className="flex flex-col">
-          <div className="leading-relaxed">{props.post.title}</div>{" "}
-          <div className="text-sm">
+          <div className="leading-relaxed text-xl md:text-2xl">
+            {props.post.title}
+          </div>{" "}
+          <div className="text-sm flex">
             <Link
               href={`/member/${props.post.profiles.username}`}
-              className="dark:text-gray-400 text-gray-600"
+              className="dark:text-gray-400 text-gray-600 flex"
             >
+              <Avatar className="w-7 h-7 mr-3">
+                <AvatarImage src={props.post.profiles.avatar_url} />
+                <AvatarFallback>
+                  {props.post.profiles.full_name.charAt(0)}
+                </AvatarFallback>
+              </Avatar>
               @{props.post.profiles.username}
             </Link>
           </div>
@@ -93,7 +103,7 @@ export default async function PostCardsWrapper(props: {
   } else {
     const { data, error } = await supabase
       .from("public_posts")
-      .select("*, profiles!inner(username, full_name)")
+      .select("*, profiles!inner(username, full_name, avatar_url)")
       .order("updated_at", { ascending: false })
       .ilike("title", `%${props.query}%`)
       .range(offset, offset + itemsPerPage - 1);

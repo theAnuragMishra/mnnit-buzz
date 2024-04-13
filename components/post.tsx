@@ -8,10 +8,15 @@ import {
   returnVoteCount,
 } from "@/lib/supabase-utils/actions";
 import Delete from "@/components/delete-button";
-
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 export default async function Posts(props: {
   title: string;
-  profiles: { username: string; id: string };
+  profiles: {
+    username: string;
+    id: string;
+    full_name: string;
+    avatar_url: string;
+  };
   content: string;
   timestamp: any;
   post_id: string;
@@ -36,12 +41,17 @@ export default async function Posts(props: {
       </h1>
 
       <div className="flex flex-row gap-5 w-full justify-between px-0">
-        <p className="text-gray-500">
-          by{" "}
-          <Link href={`/member/${props.profiles.username}`}>
-            {props.profiles.username}
+        <div className="dark:text-gray-400 text-gray-600 text-md">
+          <Link href={`/member/${props.profiles.username}`} className="flex">
+            <Avatar className="w-8 h-8 mr-3">
+              <AvatarImage src={props.profiles.avatar_url} />
+              <AvatarFallback>
+                {props.profiles.full_name.charAt(0)}
+              </AvatarFallback>
+            </Avatar>
+            @{props.profiles.username}
           </Link>
-        </p>
+        </div>
         <p className="text-gray-600 dark:text-gray-400">{props.timestamp}</p>
       </div>
 
