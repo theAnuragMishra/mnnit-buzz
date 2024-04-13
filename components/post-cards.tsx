@@ -57,9 +57,10 @@ export async function PostCard(props: { post: any; slicedContent: string }) {
 
 export default async function PostCardsWrapper(props: {
   username: string | null;
+  sortby: "top" | "controversial";
 }) {
   const supabase = createClient();
-  const today = new Date().toISOString().split("T")[0];
+
   if (props.username) {
     const { data, error } = await supabase
       .from("public_posts")
