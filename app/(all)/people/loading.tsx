@@ -1,10 +1,13 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import { lusitana } from "@/lib/font";
 
 export default function Loading() {
   const array = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   return (
     <div>
-      <h1 className={`mb-5`}>People</h1>
+      <h1 className={`${lusitana.className} text-3xl sm:text-5xl mb-5`}>
+        People
+      </h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {array.map((index) => (
           <div
