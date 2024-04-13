@@ -387,3 +387,15 @@ export async function fetchPostPages(query: string, username: string | null) {
     return totalPages;
   }
 }
+
+export async function fetchPeoplePages(query: string) {
+  const itemsPerPage = 40;
+  unstable_noStore();
+  const supabase = createClient();
+  const { count, error } = await supabase
+    .from("profiles")
+    .select("id", { count: "exact", head: true })
+    .ilike("username", `%${query}%`);
+  const totalPages = Math.ceil(Number(count) / itemsPerPage);
+  return totalPages;
+}
