@@ -22,15 +22,15 @@ export default async function Posts({
 
   const supabase = createClient();
   const { data, error } = await supabase
-    .from("public_posts")
-    .select("*, profiles!inner(username, full_name)")
-    .eq("profiles.username", params.userName);
+    .from("profiles")
+    .select("*")
+    .eq("username", params.userName);
   return (
     <div>
       <h1
         className={`${lusitana.className} mb-5 text-3xl sm:text-5xl capitalize`}
       >
-        {data![0].profiles.full_name}&apos;s Posts
+        {data![0].full_name}&apos;s Posts
       </h1>
       <Search placeholder="Search posts..." />
       <Suspense fallback={<PostCardsWrapperSkeleton />}>
