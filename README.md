@@ -1,14 +1,14 @@
 # MNNIT Buzz
 
-A place where MNNITians buzz around.
+A platform for MNNITians.
 
-## Todo
+## Features
 
-1. Sharing articles , ideas , etc. via posts.
-2. Every user can create their own post that goes under their profile.
-3. Explore page where articles from everyone will be shown
-4. Every post will have its tag for easy classification.
-5. Every post will have upvotes, down votes, comments and sharing features .
-6. Currently the committees(coding ,robotics, dance , media, music, literary) will have their own sections for updates.
-7. Post with tags will be accordingly shown in the clubs too.
-8. Personal space where user can save their own stuffs like daily diary .
+- [x] Share your posts. Write anything.
+- [x] Upvotes and downvotes to make useful posts popular.
+- [x] Comment on posts.
+- [x] Follow MNNITians.
+- [x] Search for MNNITians.
+
+Suggest more features by creating an issue or [here](https://mnnit-buzz.vercel.app/suggest).
+Star this repository if you like the idea.
