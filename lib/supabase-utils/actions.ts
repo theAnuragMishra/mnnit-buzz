@@ -14,7 +14,7 @@ export async function handleSignin() {
   });
 
   if (data.url) {
-    redirect(data.url); // use the redirect API for your server framework
+    redirect(data.url);
   }
 }
 
@@ -31,10 +31,10 @@ export async function returnPaths() {
         myPostsPath: "/member/" + userName + "/posts",
       };
     } else {
-      return { profilePath: "/set-username", myPostsPath: "/set-username" };
+      return { profilePath: null, myPostsPath: null };
     }
   } else {
-    return { profilePath: "/", myPostsPath: "/" };
+    return { profilePath: null, myPostsPath: null };
   }
 }
 
@@ -48,7 +48,9 @@ export async function userNameAlreadyCheck() {
     .select("username")
     .eq("id", userId);
   if (data![0].username) {
-    redirect(`/member/${data![0].username}`);
+    return true;
+  } else {
+    return false;
   }
 }
 
@@ -59,17 +61,14 @@ export async function setUserNameLogic(values: { username: string }) {
   const { data, error } = await supabase.from("profiles").select("username");
   for (const user of data!) {
     if (user.username === values.username) {
-      return { title: "Username is taken :(", description: "" };
+      return "Username already taken";
     }
   }
   await supabase
     .from("profiles")
     .upsert({ id: userId, username: values.username });
   revalidatePath("/(all)", "layout");
-  return {
-    title: "Username set!",
-    description: "Redirecting you to your profile...",
-  };
+  return "Username set!";
 }
 
 export async function handleSignout() {
@@ -125,7 +124,7 @@ export async function createPost(values: {
       revalidatePath(`/explore`);
       redirect(`/member/${username}/posts/${postId}`);
     } else {
-      redirect(`/set-username`);
+      redirect(`/explore`);
     }
   }
 }

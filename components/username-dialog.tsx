@@ -1,12 +1,11 @@
 "use client";
-
+import { setUserNameLogic } from "@/lib/supabase-utils/actions";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -20,7 +19,6 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 
@@ -34,8 +32,9 @@ const formSchema = z.object({
     }),
 });
 
-export default function UsernameDialog() {
-  const [open, setOpen] = useState(false);
+export default function UsernameDialog(props: { usernameSet: boolean }) {
+  const [open, setOpen] = useState(!props.usernameSet);
+  const [message, setMessage] = useState("");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,17 +42,15 @@ export default function UsernameDialog() {
     },
   });
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setOpen(false);
+    const message = await setUserNameLogic(values);
+    setMessage(message);
   }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
-        <button>Open Dialog</button>
-      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Change Username</DialogTitle>
-          <DialogDescription>Enter your new username below.</DialogDescription>
+          <DialogTitle>Set Username</DialogTitle>
+          <DialogDescription>{message}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

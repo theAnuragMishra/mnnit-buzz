@@ -12,8 +12,16 @@ import { FaPager } from "react-icons/fa";
 import { TiGroup } from "react-icons/ti";
 import { useState, useEffect } from "react";
 
+type paths = {
+  profilePath: string | null;
+  myPostsPath: string | null;
+};
+
 export default function NavLinks() {
-  const [paths, setPaths] = useState({ profilePath: "", myPostsPath: "" });
+  const [paths, setPaths] = useState<paths>({
+    profilePath: null,
+    myPostsPath: null,
+  });
   useEffect(() => {
     const getPaths = async () => {
       const paths = await returnPaths();
@@ -29,7 +37,7 @@ export default function NavLinks() {
     { name: "Explore", href: "/explore", icon: MdOutlineExplore },
     { name: "Create", href: "/create", icon: FaPlus },
     { name: "My Posts", href: paths.myPostsPath, icon: FaPager },
-    
+
     { name: "People", href: "/people", icon: TiGroup },
     { name: "Clubs", href: "/clubs", icon: GiMeepleGroup },
 
@@ -39,6 +47,7 @@ export default function NavLinks() {
   return (
     <>
       {links.map((link) => {
+        if (link.href === null) return null;
         const LinkIcon = link.icon;
         return (
           <Link

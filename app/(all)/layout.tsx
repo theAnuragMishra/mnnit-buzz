@@ -3,8 +3,8 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { Toaster } from "@/components/ui/toaster";
 import { createClient } from "@/lib/supabase-utils/server";
 import { redirect } from "next/navigation";
-import { setUserNameLogic } from "@/lib/supabase-utils/actions";
-
+import { userNameAlreadyCheck } from "@/lib/supabase-utils/actions";
+import UsernameDialog from "@/components/username-dialog";
 export default async function Layout({
   children,
 }: {
@@ -15,6 +15,7 @@ export default async function Layout({
   if (!userData.data.user) {
     redirect("/");
   }
+  let usernameSet = await userNameAlreadyCheck();
   return (
     <>
       <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
@@ -26,6 +27,7 @@ export default async function Layout({
         </div>
 
         <div className="flex-grow p-6 md:overflow-y-auto md:p-12">
+          <UsernameDialog usernameSet={usernameSet} />
           {children}
         </div>
       </div>
