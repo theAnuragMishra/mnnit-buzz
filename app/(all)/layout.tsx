@@ -3,6 +3,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { Toaster } from "@/components/ui/toaster";
 import { createClient } from "@/lib/supabase-utils/server";
 import { redirect } from "next/navigation";
+import { setUserNameLogic } from "@/lib/supabase-utils/actions";
 
 export default async function Layout({
   children,

@@ -22,22 +22,6 @@ export default function Interactions(props: {
   );
   const [votes, setVotes] = useState(props.voteCount);
 
-  // useEffect(() => {
-  //   setVotes(props.voteCount);
-  //   if (props.currentUserVote.downVoted) {
-  //     setIsUpvote(true);
-  //     setIsDownvote(false);
-  //   }
-  //   if (props.currentUserVote.upVoted) {
-  //     setIsDownvote(true);
-  //     setIsUpvote(false);
-  //   }
-  // }, [
-  //   props.voteCount,
-  //   props.currentUserVote.downVoted,
-  //   props.currentUserVote.upVoted,
-  // ]);
-
   async function handleInteractions(interactionParams: {
     interaction: "upvote" | "downvote";
     post_id: string;
