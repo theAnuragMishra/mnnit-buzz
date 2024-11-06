@@ -29,7 +29,7 @@ export default function NavLinks() {
     { name: "Explore", href: "/explore", icon: MdOutlineExplore },
     { name: "Create", href: "/create", icon: FaPlus },
     { name: "My Posts", href: paths.myPostsPath, icon: FaPager },
-    
+
     { name: "People", href: "/people", icon: TiGroup },
     { name: "Clubs", href: "/clubs", icon: GiMeepleGroup },
 
